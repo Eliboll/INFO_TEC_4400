@@ -71,14 +71,19 @@ namespace Transaction_Tracker
             transactions.Serialize(saveFileDialog.FileName);
         }
 
-        public void AddTransaction(Object sender, RoutedEventArgs e) 
+        public void AddTransactionClick(Object sender, RoutedEventArgs e) 
         {
             if (transactions == null) {
                 MessageBox.Show("No budget selected. Please open an existing or create a new budget");
                 return;
             }
-            Transaction transaction = new Transaction(DateTime.Parse("5/4/2015"),"test","test","test","test",5.0);
-            transactions.AddSingleTransaction(transaction);
+
+            AddTransaction newTransactionWindow = new AddTransaction();
+            bool? result = newTransactionWindow.ShowDialog();
+
+            if (result == true) {
+                transactions.AddSingleTransaction(newTransactionWindow.CreatedTransaction);
+            }
         }
     }
 }

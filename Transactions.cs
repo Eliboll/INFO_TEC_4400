@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 
 namespace Transaction_Tracker
 {
-    class Transaction
+    public class Transaction
     {
         public DateTime date;
         public string account;

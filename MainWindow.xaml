@@ -28,7 +28,7 @@
                 <MenuItem Header="_Exit" />
             </MenuItem>
             <MenuItem Header="_Transaction">
-                <MenuItem Header="_New Transaction" Click="AddTransaction"/>
+                <MenuItem Header="_New Transaction" Click="AddTransactionClick"/>
                 <MenuItem Header="_Edit Transaction"/>
                 <MenuItem Header="_Delete Transaction"/>
 
