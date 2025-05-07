@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Media.Animation;
+using System.Security.Cryptography;
+using System.Text;
+
 
 namespace Transaction_Tracker
 {
@@ -27,6 +31,19 @@ namespace Transaction_Tracker
             this.category       = category;
             this.amount         = amount;
         }
+
+        public string Hash()
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                string dataToHash = $"{date},{account},{payee},{description},{category},{amount}";
+                byte[] dataBytes = Encoding.UTF8.GetBytes(dataToHash);
+                byte[] hashBytes = md5.ComputeHash(dataBytes);
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            }
+        }
+
+
     }
 
     class Transactions 
@@ -81,7 +98,15 @@ namespace Transaction_Tracker
 
         public IEnumerable<Transaction> All => transactions;
 
-        public void Remove() { }
+        public void Remove(Transaction toRemove) 
+        {
+            foreach (Transaction transaction in transactions) {
+                if (transaction.Hash().Equals(toRemove.Hash())) {
+                    transactions.Remove(transaction);
+                    return;
+                }
+            }
+        }
     }
 
 }
