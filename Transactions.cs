@@ -25,4 +25,24 @@ namespace Transaction_Tracker
             this.amount         = amount;
         }
     }
+
+    class Transactions 
+    {
+        List<Transaction> transactions = new List<Transaction>();
+
+        public Transactions() { 
+        
+        }
+
+        public void serialize(string path) { }
+        public void deserialize(string path) { }
+        public void add_single_transaction(Transaction transaction) 
+        {
+            transactions.Add(transaction);
+        }
+
+
+
+    }
+
 }
