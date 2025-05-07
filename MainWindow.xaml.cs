@@ -97,6 +97,9 @@ namespace Transaction_Tracker
                 .Select(t => $"{t.date:yyyy-MM-dd}  {t.description.PadRight(30)}  {t.amount,10:C}");
 
             TransactionsListBox.ItemsSource = formattedTransactions.ToList();
+
+            _graphingController.PopulateGraphs(transactions.All);
+
         }
     }
 }
