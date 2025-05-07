@@ -92,17 +92,11 @@ namespace Transaction_Tracker
 
         public void Refresh() 
         {
-            // Example list of transactions
-            IEnumerable<Transaction> transactions = GetTransactions(); // Your data source
-
-            // Sort by date and format each transaction as a padded string
-            var formattedTransactions = transactions
+            var formattedTransactions = transactions.All
                 .OrderBy(t => t.date)
                 .Select(t => $"{t.date:yyyy-MM-dd}  {t.description.PadRight(30)}  {t.amount,10:C}");
 
-            // Add to ListBox (for example in a WPF window)
-            listBox.ItemsSource = formattedTransactions.ToList();
-
+            TransactionsListBox.ItemsSource = formattedTransactions.ToList();
         }
     }
 }
