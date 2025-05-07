@@ -3,10 +3,83 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
         xmlns:local="clr-namespace:Transaction_Tracker"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New Tracker" />
+                <MenuItem Header="_Open Tracker" />
+                <MenuItem Header="_Save Tracker" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+            <MenuItem Header="_Transaction">
+                <MenuItem Header="_New Transaction"/>
+                <MenuItem Header="_Edit Transaction"/>
+                <MenuItem Header="_Delete Transaction"/>
+
+            </MenuItem>
+        </Menu>
+        <Border Grid.Row="1" Grid.Column="0"
+        Background="#252525"
+        CornerRadius="10"
+        Margin="2">
+            <Grid Margin="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ListBox
+      x:Name="TransactionsListBox"
+      Grid.Row="0"
+      d:ItemsSource="{d:SampleData ItemCount=5}"
+      VerticalAlignment="Stretch"
+      HorizontalAlignment="Stretch" />
+
+                <TextBox
+      x:Name="IndividualTransactionsTextBox"
+      Grid.Row="1"
+      TextWrapping="Wrap"
+      AcceptsReturn="True"
+      VerticalAlignment="Stretch"
+      HorizontalAlignment="Stretch" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1"
+            CornerRadius="10"
+            Margin="2">
+            <Grid Margin="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+
+                <ScottPlot:WpfPlot
+          x:Name="TransactionsMoneySpentGraph"
+          Grid.Row="0" />
+
+                <ScottPlot:WpfPlot
+          x:Name="TransactionsByCategoryGraph"
+          Grid.Row="1"
+          Margin="0,8,0,0" />
+            </Grid>
+        </Border>
+
     </Grid>
 </Window>
