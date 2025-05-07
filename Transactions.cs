@@ -7,8 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Media.Animation;
-using System.Security.Cryptography;
-using System.Text;
 
 
 namespace Transaction_Tracker
@@ -20,9 +18,9 @@ namespace Transaction_Tracker
         public string payee;
         public string description;
         public string category;
-        public float amount;
+        public double amount;
 
-        public Transaction(DateTime date, string account, string payee, string description, string category, float amount) 
+        public Transaction(DateTime date, string account, string payee, string description, string category, double amount) 
         {
             this.date           = date;
             this.account        = account;
@@ -74,7 +72,7 @@ namespace Transaction_Tracker
             string payee = parts[2];
             string description = parts[3];
             string category = parts[4];
-            float amount = float.Parse(parts[5]);
+            double amount = double.Parse(parts[5]);
 
             return new Transaction(date, account, payee, description, category, amount);
         }

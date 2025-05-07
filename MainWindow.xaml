@@ -21,14 +21,14 @@
 
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <MenuItem Header="_File">
-                <MenuItem Header="_New Tracker" />
-                <MenuItem Header="_Open Tracker" />
-                <MenuItem Header="_Save Tracker" />
+                <MenuItem Header="_New Tracker" Click="OnNewClick"/>
+                <MenuItem Header="_Open Tracker" Click="OnOpenClick"/>
+                <MenuItem Header="_Save Tracker" Click="OnSaveClick"/>
                 <Separator />
                 <MenuItem Header="_Exit" />
             </MenuItem>
             <MenuItem Header="_Transaction">
-                <MenuItem Header="_New Transaction"/>
+                <MenuItem Header="_New Transaction" Click="AddTransactionClick"/>
                 <MenuItem Header="_Edit Transaction"/>
                 <MenuItem Header="_Delete Transaction"/>
 
