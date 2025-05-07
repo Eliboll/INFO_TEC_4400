@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,8 +35,43 @@ namespace Transaction_Tracker
         
         }
 
-        public void serialize(string path) { }
-        public void deserialize(string path) { }
+        public void serialize(string path) 
+        {
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                foreach (Transaction transaction in transactions) 
+                {
+                    writer.WriteLine($"{transaction.date.ToString()},{transaction.account},{transaction.payee},{transaction.description},{transaction.category},{transaction.amount.ToString("F2")}");
+                }
+            }
+
+        }
+        private static Transaction ParseTransaction(string line)
+        {
+            var parts = line.Split(',');
+
+            DateTime date = DateTime.Parse(parts[0]);
+            string account = parts[1];
+            string payee = parts[2];
+            string description = parts[3];
+            string category = parts[4];
+            float amount = float.Parse(parts[5]);
+
+            return new Transaction(date, account, payee, description, category, amount);
+        }
+
+        public void deserialize(string path) 
+        {
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    transactions.Add(ParseTransaction(line));
+                }
+            }
+
+        }
         public void add_single_transaction(Transaction transaction) 
         {
             transactions.Add(transaction);
