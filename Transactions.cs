@@ -13,7 +13,7 @@ using System.Text;
 
 namespace Transaction_Tracker
 {
-    class Transaction
+    public class Transaction
     {
         public DateTime date;
         public string account;
@@ -46,7 +46,7 @@ namespace Transaction_Tracker
 
     }
 
-    class Transactions 
+    public class Transactions 
     {
         private List<Transaction> transactions = new List<Transaction>();
 

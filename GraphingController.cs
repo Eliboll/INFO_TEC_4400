@@ -1,0 +1,94 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ScottPlot;
+using ScottPlot.Plottables;
+using ScottPlot.TickGenerators;
+using ScottPlot.WPF;
+
+namespace Transaction_Tracker
+{
+    public class GraphingController
+    {
+        private readonly WpfPlot _barGraph;
+        private readonly WpfPlot _pieGraph;
+        public GraphingController(WpfPlot barGraph, WpfPlot pieGraph)
+        {
+            _barGraph = barGraph;
+            _pieGraph = pieGraph;
+
+            _barGraph.Plot.Title("Monthly Spending");
+            _barGraph.Plot.Axes.Bottom.Label.Text = "Months";
+
+
+            _pieGraph.Plot.Title("Category Spending");
+        }
+        public void PopulateGraphs(IEnumerable<Transaction> list)
+        {
+            _barGraph.Plot.Clear();
+
+            var monthlyData = list
+                .GroupBy(t => new DateTime(t.date.Year, t.date.Month, 1))
+                .OrderBy(g => g.Key)
+                .Select(g => new { Month = g.Key, Sum = g.Sum(t => (double)t.amount) })
+                .ToList();
+
+            for (int i = 0; i < monthlyData.Count; i++)
+            {
+                double value = monthlyData[i].Sum;
+                _barGraph.Plot.Add.Bar(position: i + 1, value: value);
+            }
+
+            var ticks = monthlyData
+                .Select((x, i) => new Tick(i + 1, x.Month.ToString("MMM yyyy")))
+                .ToArray();
+
+            _barGraph.Plot.Axes.Bottom.TickGenerator = new NumericManual(ticks);
+            _barGraph.Plot.Axes.Bottom.MajorTickStyle.Length = 0;
+            _barGraph.Plot.HideGrid();
+            _barGraph.Plot.Axes.Margins(bottom: 0);
+            _barGraph.Refresh();
+
+            _pieGraph.Plot.Clear();
+
+            var categoryData = list
+                .GroupBy(t => t.category)
+                .Select(g => new
+                {
+                    Category = g.Key,
+                    Sum = g.Sum(t => (double)t.amount)
+                })
+                .Where(x => x.Sum > 0)
+                .ToList();
+
+            Color[] palette = {
+            Colors.Red, Colors.Orange, Colors.Gold,
+            Colors.Green, Colors.Blue, Colors.Purple,
+            Colors.Cyan, Colors.Magenta
+            };
+
+            var slices = new List<PieSlice>();
+            for (int i = 0; i < categoryData.Count; i++)
+            {
+                var cat = categoryData[i];
+                slices.Add(new PieSlice()
+                {
+                    Value = cat.Sum,
+                    Label = cat.Category,
+                    FillColor = palette[i % palette.Length]
+                });
+            }
+
+            var pie = _pieGraph.Plot.Add.Pie(slices);
+            pie.DonutFraction = 0.5;           // 50% inner radius
+            _pieGraph.Plot.ShowLegend();       // legend with category labels
+
+            _pieGraph.Plot.Axes.Frameless();
+            _pieGraph.Plot.HideGrid();
+
+            _pieGraph.Refresh();
+        }
+    }
+}
