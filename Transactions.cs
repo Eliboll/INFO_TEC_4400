@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using System.Windows.Media.Animation;
 
 namespace Transaction_Tracker
 {
@@ -36,7 +37,7 @@ namespace Transaction_Tracker
         
         }
 
-        public void serialize(string path) 
+        public void Serialize(string path) 
         {
             using (StreamWriter writer = new StreamWriter(path))
             {
@@ -61,7 +62,7 @@ namespace Transaction_Tracker
             return new Transaction(date, account, payee, description, category, amount);
         }
 
-        public void deserialize(string path) 
+        public void Deserialize(string path) 
         {
             using (StreamReader reader = new StreamReader(path))
             {
@@ -73,12 +74,14 @@ namespace Transaction_Tracker
             }
 
         }
-        public void add_single_transaction(Transaction transaction) 
+        public void AddSingleTransaction(Transaction transaction) 
         {
             transactions.Add(transaction);
         }
 
         public IEnumerable<Transaction> All => transactions;
+
+        public void Remove() { }
     }
 
 }
