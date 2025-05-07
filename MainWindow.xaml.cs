@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +23,62 @@ namespace Transaction_Tracker
     /// </summary>
     public partial class MainWindow : Window
     {
+        Transactions transactions = null;
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public void OnNewClick(Object sender, RoutedEventArgs e) 
+        {
+            transactions = new Transactions();
+        }
+
+        public void OnOpenClick(Object sender, RoutedEventArgs e)
+        {
+            transactions = new Transactions();
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Transaction Tracker File (*.trantrac)|*.trantrac";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                if (openFileDialog.FileName == "")
+                {
+                    MessageBox.Show("Error, user cancelled save");
+                    return;
+                }
+                transactions.Deserialize(openFileDialog.FileName);
+            }
+        }
+
+        public void OnSaveClick(Object sender, RoutedEventArgs e) 
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                DefaultExt = ".trantrac",
+                Filter = "Trantrac Files (*.trantrac)|*.trantrac",
+                AddExtension = true,
+                OverwritePrompt = true,
+                CheckFileExists = false,
+            };
+
+            bool? result = saveFileDialog.ShowDialog();
+            if (!File.Exists(saveFileDialog.FileName))
+            {
+                File.WriteAllText(saveFileDialog.FileName, "");
+            }
+
+            transactions.Serialize(saveFileDialog.FileName);
+        }
+
+        public void AddTransaction(Object sender, RoutedEventArgs e) 
+        {
+            if (transactions == null) {
+                MessageBox.Show("No budget selected. Please open an existing or create a new budget");
+                return;
+            }
+            Transaction transaction = new Transaction(DateTime.Parse("5/4/2015"),"test","test","test","test",5.0);
+            transactions.AddSingleTransaction(transaction);
         }
     }
 }
