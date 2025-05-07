@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace Transaction_Tracker
 {
@@ -29,7 +30,7 @@ namespace Transaction_Tracker
 
     class Transactions 
     {
-        List<Transaction> transactions = new List<Transaction>();
+        private List<Transaction> transactions = new List<Transaction>();
 
         public Transactions() { 
         
@@ -77,8 +78,7 @@ namespace Transaction_Tracker
             transactions.Add(transaction);
         }
 
-
-
+        public IEnumerable<Transaction> All => transactions;
     }
 
 }
