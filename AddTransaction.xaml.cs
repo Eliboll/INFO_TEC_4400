@@ -59,16 +59,38 @@ namespace Transaction_Tracker
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            CreatedTransaction = new Transaction(
-                DateBox.DisplayDate,
-                AccountBox.Text,
-                PayeeBox.Text,
-                DescBox.Text,
-                CatBox.Text,
-                double.Parse(AmountBox.Text),
-                RecurringBox.IsChecked ?? false
-                );
-            this.DialogResult = true;
+
+            if (DateBox.SelectedDate != null &&
+                AccountBox.Text != "" &&
+                PayeeBox.Text != "" &&
+                DescBox.Text != "" &&
+                CatBox.Text != "" &&
+                AmountBox.Text != ""
+                )
+            {
+                if ((AccountBox.Text + PayeeBox.Text + DescBox.Text + CatBox.Text + AmountBox.Text).Contains(",")) 
+                {
+                    MessageBox.Show("No fields may contain a comma");
+                    return;
+                }
+
+                CreatedTransaction = new Transaction(
+                    DateBox.DisplayDate,
+                    AccountBox.Text,
+                    PayeeBox.Text,
+                    DescBox.Text,
+                    CatBox.Text,
+                    double.Parse(AmountBox.Text),
+                    RecurringBox.IsChecked ?? false
+                    );
+
+                this.DialogResult = true;
+            }
+            else 
+            {
+                MessageBox.Show("Please enter data for all fields!");
+                
+            }
         }
     }
 }

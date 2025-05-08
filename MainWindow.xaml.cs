@@ -196,6 +196,23 @@ namespace Transaction_Tracker
             {
                 if (TransactionsListBox.SelectedItem is Transaction selection)
                 {
+                    if (AmountBox.Text == "" ||
+                        DateBox.SelectedDate == null ||
+                        DescriptionBox.Text == "" ||
+                        PayeeBox.Text == "" ||
+                        AccountBox.Text == "" ||
+                        CategoryBox.Text == "") {
+                        MessageBox.Show("No Fields can be empty!");
+                        return;
+                    }
+                    if ((DescriptionBox.Text + PayeeBox.Text + AccountBox.Text + CategoryBox.Text).Contains(",")) 
+                    {
+                        MessageBox.Show("Commas are not allowed in text fields. Please update immedietly");
+                        return;
+                    }
+
+
+
                     selection.amount = double.Parse(AmountBox.Text);
                     selection.date =  (DateTime) DateBox.SelectedDate;
                     selection.description = DescriptionBox.Text;
