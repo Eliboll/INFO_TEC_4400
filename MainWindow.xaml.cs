@@ -219,6 +219,7 @@ namespace Transaction_Tracker
         {
             transactionFilter = new Filter();
             Refresh();
+            GraphUpdated?.Invoke();
         }
 
         public void CategorySearchClick(Object sender, RoutedEventArgs e) 
@@ -230,6 +231,7 @@ namespace Transaction_Tracker
             {
                 transactionFilter = new CategoryFilter(window.searchContent);
                 Refresh();
+                GraphUpdated?.Invoke();
             }
         }
 
@@ -242,6 +244,7 @@ namespace Transaction_Tracker
             {
                 transactionFilter = new DescriptionFilter(window.searchContent);
                 Refresh();
+                GraphUpdated?.Invoke();
             }
         }
 
@@ -255,6 +258,7 @@ namespace Transaction_Tracker
                 if (window.toDate != null) { transactionFilter.ToDate((DateTime)window.toDate); }
                 if (window.fromDate != null) { transactionFilter.FromDate((DateTime)window.fromDate); }
                 Refresh();
+                GraphUpdated?.Invoke();
             }
         }
 
