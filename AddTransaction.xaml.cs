@@ -25,17 +25,17 @@ namespace Transaction_Tracker
         {
             InitializeComponent();
         }
+        
+        // verify that user input is a double
         private void AmountTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             var textBox = (TextBox)sender;
 
-            // Predict what the full text will be after input
             string fullText = GetPreviewText(textBox, e.Text);
 
-            // Validate full input as a double and limit to 2 decimal places
             e.Handled = !IsValidDoubleWithTwoDecimals(fullText);
         }
-
+        // check text before cursor
         private string GetPreviewText(TextBox textBox, string input)
         {
             int selectionStart = textBox.SelectionStart;
@@ -46,6 +46,7 @@ namespace Transaction_Tracker
             return newText;
         }
 
+        // check if the new string is valid
         private bool IsValidDoubleWithTwoDecimals(string text)
         {
             if (!double.TryParse(text, out _)) return false;
@@ -59,7 +60,7 @@ namespace Transaction_Tracker
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            // make sure no data is empty
             if (DateBox.SelectedDate != null &&
                 AccountBox.Text != "" &&
                 PayeeBox.Text != "" &&
@@ -68,6 +69,7 @@ namespace Transaction_Tracker
                 AmountBox.Text != ""
                 )
             {
+                // make sure no commas for csv
                 if ((AccountBox.Text + PayeeBox.Text + DescBox.Text + CatBox.Text + AmountBox.Text).Contains(",")) 
                 {
                     MessageBox.Show("No fields may contain a comma");

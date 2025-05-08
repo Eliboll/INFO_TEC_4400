@@ -32,6 +32,7 @@ namespace Transaction_Tracker
             this.recurring = recurring;
         }
 
+        // hash function for comparing if two Transactions have the same contents for deletion, or to check for duplicate transactions
         public string Hash()
         {
             using (MD5 md5 = MD5.Create())
@@ -42,6 +43,8 @@ namespace Transaction_Tracker
                 return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
             }
         }
+        //override to string for displaying in listbox
+        // date description amount
         public override string ToString()
         {
             return $"{date:yyyy-MM-dd}  {description.PadRight(30)}  {amount,10:C}";
@@ -56,7 +59,7 @@ namespace Transaction_Tracker
         public Transactions() { 
         
         }
-
+        // save to file path
         public void Serialize(string path) 
         {
             using (StreamWriter writer = new StreamWriter(path))
@@ -68,6 +71,8 @@ namespace Transaction_Tracker
             }
 
         }
+
+        //turn line into Transaction
         private static Transaction ParseTransaction(string line)
         {
             var parts = line.Split(',');
@@ -81,7 +86,7 @@ namespace Transaction_Tracker
             bool recurring = bool.Parse(parts[6]);
             return new Transaction(date, account, payee, description, category, amount,recurring);
         }
-
+        // load from file
         public void Deserialize(string path) 
         {
             using (StreamReader reader = new StreamReader(path))
@@ -99,11 +104,13 @@ namespace Transaction_Tracker
             transactions.Add(transaction);
         }
 
+        // Get Enumerable list of all transactions
         public IEnumerable<Transaction> All => transactions;
 
         public void Remove(Transaction toRemove) 
         {
             foreach (Transaction transaction in transactions) {
+                //find the matching transaction by the contents of transaction
                 if (transaction.Hash().Equals(toRemove.Hash())) {
                     transactions.Remove(transaction);
                     return;
