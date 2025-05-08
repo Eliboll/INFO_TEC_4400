@@ -8,18 +8,21 @@
         Title="Add Transaction" Height="299" Width="345">
     <Grid>
         <DatePicker Name="DateBox" HorizontalAlignment="Left" Margin="124,27,0,0" VerticalAlignment="Top" SelectedDate="{x:Static sys:DateTime.Today}" xmlns:sys="clr-namespace:System;assembly=mscorlib"/>
-        <TextBox Name="AccountBox" HorizontalAlignment="Left" Margin="124,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="PayeeBox" HorizontalAlignment="Left" Margin="124,88,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="AccountBox" HorizontalAlignment="Left" Margin="124,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="128"/>
+        <TextBox Name="PayeeBox" HorizontalAlignment="Left" Margin="124,88,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="128"/>
         <Label Content="Transaction Date" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="109"/>
         <Label Content="Account" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Width="109"/>
         <Label Content="Payee" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="109"/>
         <Label Content="Description" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="109"/>
         <Label Content="Category" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Width="109"/>
         <Label Content="Amount               $" HorizontalAlignment="Left" Margin="10,162,0,0" VerticalAlignment="Top" Width="109"/>
-        <TextBox Name="DescBox" HorizontalAlignment="Left" Margin="124,114,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="CatBox" HorizontalAlignment="Left" Margin="124,140,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="AmountBox" HorizontalAlignment="Left" Margin="124,166,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" PreviewTextInput="AmountTextBox_PreviewTextInput" />
-        <Button Content="Add Transaction" HorizontalAlignment="Left" Margin="156,205,0,0" VerticalAlignment="Top" Width="96" Height="30" Click="Button_Click"/>
+        <Label Content="Recurring Transaction?" HorizontalAlignment="Left" Margin="10,189,0,0" Width="131" VerticalAlignment="Top" Height="31"/>
+        <TextBox Name="DescBox" HorizontalAlignment="Left" Margin="124,114,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="128"/>
+        <TextBox Name="CatBox" HorizontalAlignment="Left" Margin="124,140,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="128"/>
+        <TextBox Name="AmountBox" HorizontalAlignment="Left" Margin="124,166,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="128" PreviewTextInput="AmountTextBox_PreviewTextInput" />
+
+        <Button Content="Add Transaction" HorizontalAlignment="Left" Margin="156,214,0,0" VerticalAlignment="Top" Width="96" Height="30" Click="Button_Click"/>
+        <CheckBox x:Name="RecurringBox" HorizontalAlignment="Left" Margin="236,194,0,0" VerticalAlignment="Top" IsChecked="False"/>
 
     </Grid>
 </Window>

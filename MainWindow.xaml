@@ -71,6 +71,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <Label   Grid.Row="0" Grid.Column="0" Content="Date"        VerticalAlignment="Center" />
@@ -95,6 +96,13 @@
                                  TextChanged="BoxUpdate"
                                  PreviewTextInput="AmountTextBox_PreviewTextInput"
                                  Margin="0,4,0,0"/>
+                        <Label   Grid.Row="6" Grid.Column="0" Content="Recurring Expense?"      VerticalAlignment="Center" Margin="0,4,0,0"/>
+                        <CheckBox Grid.Row="6" Grid.Column="1"
+                                 Name="RecurringBox"
+                                 IsChecked="False"
+                                 Checked="BoxUpdate"
+                                 Unchecked="BoxUpdate"
+                                 Margin="0,4,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>                    
                     </Grid>
                 </Grid>
             </Border>

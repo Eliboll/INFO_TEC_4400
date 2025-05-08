@@ -120,7 +120,7 @@ namespace Transaction_Tracker
                 DescriptionBox.Text = selection.description;
                 CategoryBox.Text = selection.category;
                 AmountBox.Text = selection.amount.ToString("F2");
-
+                RecurringBox.IsChecked = selection.recurring;
 
                 DateBox.IsEnabled = true;
                 AccountBox.IsEnabled = true;
@@ -128,7 +128,7 @@ namespace Transaction_Tracker
                 DescriptionBox.IsEnabled = true;
                 CategoryBox.IsEnabled = true;
                 AmountBox.IsEnabled = true;
-
+                RecurringBox.IsEnabled = true;
                 _tracker = false;
             }
         }
@@ -146,6 +146,7 @@ namespace Transaction_Tracker
             DescriptionBox.Text = "";
             CategoryBox.Text = "";
             AmountBox.Text = "";
+            RecurringBox.IsChecked = false;
             _tracker = false;
             TransactionsListBox.ItemsSource = transactions.All.OrderBy(t => t.date).ToList();
         }
@@ -194,6 +195,7 @@ namespace Transaction_Tracker
                     selection.payee = PayeeBox.Text;
                     selection.account = AccountBox.Text;
                     selection.category = CategoryBox.Text;
+                    selection.recurring = RecurringBox.IsChecked ?? false;
                     CollectionViewSource.GetDefaultView(TransactionsListBox.ItemsSource).Refresh();
                     GraphUpdated?.Invoke();
                 }

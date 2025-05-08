@@ -19,8 +19,9 @@ namespace Transaction_Tracker
         public string description;
         public string category;
         public double amount;
+        public bool recurring;
 
-        public Transaction(DateTime date, string account, string payee, string description, string category, double amount) 
+        public Transaction(DateTime date, string account, string payee, string description, string category, double amount, bool recurring) 
         {
             this.date           = date;
             this.account        = account;
@@ -28,6 +29,7 @@ namespace Transaction_Tracker
             this.description    = description;
             this.category       = category;
             this.amount         = amount;
+            this.recurring = recurring;
         }
 
         public string Hash()
@@ -61,7 +63,7 @@ namespace Transaction_Tracker
             {
                 foreach (Transaction transaction in transactions) 
                 {
-                    writer.WriteLine($"{transaction.date.ToString()},{transaction.account},{transaction.payee},{transaction.description},{transaction.category},{transaction.amount.ToString("F2")}");
+                    writer.WriteLine($"{transaction.date.ToString()},{transaction.account},{transaction.payee},{transaction.description},{transaction.category},{transaction.amount.ToString("F2")},{transaction.recurring}");
                 }
             }
 
@@ -76,8 +78,8 @@ namespace Transaction_Tracker
             string description = parts[3];
             string category = parts[4];
             double amount = double.Parse(parts[5]);
-
-            return new Transaction(date, account, payee, description, category, amount);
+            bool recurring = bool.Parse(parts[6]);
+            return new Transaction(date, account, payee, description, category, amount,recurring);
         }
 
         public void Deserialize(string path) 

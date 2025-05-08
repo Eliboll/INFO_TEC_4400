@@ -65,7 +65,8 @@ namespace Transaction_Tracker
                 PayeeBox.Text,
                 DescBox.Text,
                 CatBox.Text,
-                double.Parse(AmountBox.Text)
+                double.Parse(AmountBox.Text),
+                RecurringBox.IsChecked ?? false
                 );
             this.DialogResult = true;
         }
