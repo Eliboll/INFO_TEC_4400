@@ -20,7 +20,7 @@
                 <MenuItem Header="_Open Tracker"  Click="OnOpenClick"/>
                 <MenuItem Header="_Save Tracker"  Click="OnSaveClick"/>
                 <Separator/>
-                <MenuItem Header="_Exit" />
+                <MenuItem x:Name="ExitClick" Header="_Exit" Click="Exit_Click"/>
             </MenuItem>
             <MenuItem Header="_Transaction">
                 <MenuItem Header="_New Transaction" Click="AddTransactionClick"/>
