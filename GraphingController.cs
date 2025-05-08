@@ -62,7 +62,11 @@ namespace Transaction_Tracker
                 })
                 .Where(x => x.Sum > 0)
                 .ToList();
-
+            Color[] palette = {
+                Colors.Red, Colors.Orange, Colors.Gold,
+                Colors.Green, Colors.Blue, Colors.Purple,
+                Colors.Cyan, Colors.Magenta
+            };
 
             var slices = new List<PieSlice>();
             for (int i = 0; i < categoryData.Count; i++)
@@ -72,13 +76,14 @@ namespace Transaction_Tracker
                 {
                     Value = cat.Sum,
                     Label = cat.Category,
+                    FillColor = palette[i % palette.Length]
                 });
             }
 
             var pie = _pieGraph.Plot.Add.Pie(slices);
             pie.DonutFraction = 0.5;           // 50% inner radius
             _pieGraph.Plot.ShowLegend();       // legend with category labels
-
+            
             _pieGraph.Plot.Axes.Frameless();
             _pieGraph.Plot.HideGrid();
 
