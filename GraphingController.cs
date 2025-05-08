@@ -86,7 +86,7 @@ namespace Transaction_Tracker
             
             _pieGraph.Plot.Axes.Frameless();
             _pieGraph.Plot.HideGrid();
-
+            _pieGraph.Plot.Axes.Margins(left: 0, right: 0, top: 0, bottom: 0);
             _pieGraph.Refresh();
         }
     }
