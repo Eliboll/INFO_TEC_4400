@@ -59,7 +59,6 @@ namespace Transaction_Tracker
                     ValueBase = 0,
                     Value = rec,
                     FillColor = barPalette.GetColor(0),
-                    Label = "Recurring"
                 };
 
                 bars[2 * i + 1] = new Bar()
@@ -68,13 +67,11 @@ namespace Transaction_Tracker
                     ValueBase = rec,
                     Value = rec + one,
                     FillColor = barPalette.GetColor(1),
-                    Label = "One-Time"
                 };
             }
 
             _barGraph.Plot.Clear();
             _barGraph.Plot.Add.Bars(bars);
-
             var ticks = monthlyData
                 .Select((x, i) => new Tick(i + 1, x.Month.ToString("MMM yyyy")))
                 .ToArray();
