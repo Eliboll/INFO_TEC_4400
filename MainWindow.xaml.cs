@@ -138,7 +138,8 @@ namespace Transaction_Tracker
         }
         public void UpdateGraphs()
         {
-            _graphingController.PopulateGraphs(transactions.All);
+            transactionFilter.AddData(transactions.All);
+            _graphingController.PopulateGraphs(transactionFilter.GetFilterOutput());
 
         }
         public void Refresh() 
