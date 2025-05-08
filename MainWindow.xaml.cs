@@ -77,6 +77,11 @@ namespace Transaction_Tracker
 
         public void OnSaveClick(Object sender, RoutedEventArgs e) 
         {
+            if (transactions == null) {
+                MessageBox.Show("Please load a transaction tracker before saving!");
+                return;
+            }
+
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 DefaultExt = ".trantrac",
@@ -138,12 +143,23 @@ namespace Transaction_Tracker
         }
         public void UpdateGraphs()
         {
+            if (transactions == null)
+            {
+                return;
+            }
+
             transactionFilter.AddData(transactions.All);
             _graphingController.PopulateGraphs(transactionFilter.GetFilterOutput());
 
         }
         public void Refresh() 
         {
+            if (transactions == null) 
+            {
+                MessageBox.Show("Please load a file or make a new file");
+                return;
+            }
+
             _tracker = true;
             DateBox.SelectedDate = null;
             AccountBox.Text = "";
@@ -196,6 +212,21 @@ namespace Transaction_Tracker
             {
                 if (TransactionsListBox.SelectedItem is Transaction selection)
                 {
+                    if (AmountBox.Text == "" ||
+                        DateBox.SelectedDate == null ||
+                        DescriptionBox.Text == "" ||
+                        PayeeBox.Text == "" ||
+                        AccountBox.Text == "" ||
+                        CategoryBox.Text == "") {
+                        MessageBox.Show("No Fields can be empty!");
+                        return;
+                    }
+                    if ((DescriptionBox.Text + PayeeBox.Text + AccountBox.Text + CategoryBox.Text).Contains(",")) 
+                    {
+                        MessageBox.Show("Commas are not allowed in text fields. Please update immedietly");
+                        return;
+                    }
+
                     selection.amount = double.Parse(AmountBox.Text);
                     selection.date =  (DateTime) DateBox.SelectedDate;
                     selection.description = DescriptionBox.Text;
@@ -211,6 +242,11 @@ namespace Transaction_Tracker
 
         public void DeleteClick(Object sender, RoutedEventArgs e) 
         {
+            if (transactions == null) 
+            {
+                MessageBox.Show("Please load a file or make a new file");
+                return;
+            }
             transactions.Remove(TransactionsListBox.SelectedItem as Transaction);
             Refresh();
             GraphUpdated?.Invoke();
