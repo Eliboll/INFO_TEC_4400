@@ -47,7 +47,7 @@ namespace Transaction_Tracker
         // date description amount
         public override string ToString()
         {
-            return $"{date:yyyy-MM-dd}  {description.PadRight(30)}  {amount,10:C}";
+            return $"{date:yyyy-MM-dd}  {payee.PadRight(30)}  {amount,10:C}";
         }
 
     }

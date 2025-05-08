@@ -95,7 +95,7 @@ namespace Transaction_Tracker
         // gets contents of data where searchterm appears in the description
         public override IEnumerable<Transaction> GetFilterOutput()
         {
-            var filteredTransactions = transactions.Where(t => t.description.Contains(searchTerm));
+            var filteredTransactions = transactions.Where(t => t.payee.Contains(searchTerm) || t.description.Contains(searchTerm));
             return base.GetFilterOutput(filteredTransactions);
         }
     }
