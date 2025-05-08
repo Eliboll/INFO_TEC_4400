@@ -28,8 +28,10 @@
 
             </MenuItem>
             <MenuItem Header="_Filter">
-                <MenuItem Header="_Search" />
-                <MenuItem Header="_Category Filter"/>
+                <MenuItem Header="_Search" Click="DescriptionSearchClick" />
+                <MenuItem Header="_Category Filter" Click="CategorySearchClick"/>
+                <MenuItem Header="_Time Filter" Click="AddDateFilter"/>
+                <MenuItem Header="_Reset Filters" Click="ResetFilters"/>
             </MenuItem>
         </Menu>
 
