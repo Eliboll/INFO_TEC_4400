@@ -60,7 +60,8 @@ namespace Transaction_Tracker
 
     }
 
-    class CategoryFilter : Filter {
+    class CategoryFilter : Filter 
+    {
         string category;
         public CategoryFilter(string category) : base()
         {
@@ -70,6 +71,22 @@ namespace Transaction_Tracker
         public override IEnumerable<Transaction> GetFilterOutput() 
         {
             var filteredTransactions = transactions.Where(t => t.category.Equals(this.category));
+            return base.GetFilterOutput(filteredTransactions);
+        }
+    }
+
+    class DescriptionFilter : Filter 
+    {
+        string searchTerm;
+
+        public DescriptionFilter(string searchTerm) : base()
+        {
+            this.searchTerm = searchTerm;
+        }
+
+        public override IEnumerable<Transaction> GetFilterOutput()
+        {
+            var filteredTransactions = transactions.Where(t => t.description.Contains(searchTerm));
             return base.GetFilterOutput(filteredTransactions);
         }
     }
