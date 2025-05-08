@@ -272,6 +272,10 @@ namespace Transaction_Tracker
                 MessageBox.Show("Please load a file or make a new file");
                 return;
             }
+            if(TransactionsListBox.SelectedItem == null)
+            {
+                return;
+            }
             //remove given transaction and refresh/update
             transactions.Remove(TransactionsListBox.SelectedItem as Transaction);
             Refresh();
