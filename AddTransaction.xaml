@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Transaction_Tracker"
         mc:Ignorable="d"
-        Title="Add Transaction" Height="261" Width="327">
+        Title="Add Transaction" Height="299" Width="345">
     <Grid>
         <DatePicker Name="DateBox" HorizontalAlignment="Left" Margin="124,27,0,0" VerticalAlignment="Top" SelectedDate="{x:Static sys:DateTime.Today}" xmlns:sys="clr-namespace:System;assembly=mscorlib"/>
         <TextBox Name="AccountBox" HorizontalAlignment="Left" Margin="124,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
