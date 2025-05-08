@@ -2,6 +2,7 @@
 using ScottPlot.Plottables;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Policy;
@@ -26,12 +27,24 @@ namespace Transaction_Tracker
     {
         Transactions transactions = null;
         private bool _tracker = false;
-
+        private readonly Stopwatch _graphUpdateStopwatch = new Stopwatch();
+        public event Action GraphUpdated = delegate { };
         private GraphingController _graphingController = null;
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+        private Task AwaitInitGraphs()
+        {
             _graphingController = new GraphingController(TransactionsMoneySpentGraph, TransactionsByCategoryGraph);
+            _graphUpdateStopwatch.Start();
+            GraphUpdated += UpdateGraphs;
+            return Task.CompletedTask;
+        }
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            await AwaitInitGraphs();
         }
 
         public void OnNewClick(Object sender, RoutedEventArgs e) 
@@ -55,6 +68,7 @@ namespace Transaction_Tracker
                 transactions.Deserialize(openFileDialog.FileName);
             }
             Refresh();
+            GraphUpdated?.Invoke();
         }
 
         public void OnSaveClick(Object sender, RoutedEventArgs e) 
@@ -91,6 +105,7 @@ namespace Transaction_Tracker
                 transactions.AddSingleTransaction(newTransactionWindow.CreatedTransaction);
             }
             Refresh();
+            GraphUpdated?.Invoke();
         }
 
         public void SelectionChange(Object sender, RoutedEventArgs e) 
@@ -117,7 +132,11 @@ namespace Transaction_Tracker
                 _tracker = false;
             }
         }
+        public void UpdateGraphs()
+        {
+            _graphingController.PopulateGraphs(transactions.All);
 
+        }
         public void Refresh() 
         {
             _tracker = true;
@@ -129,7 +148,6 @@ namespace Transaction_Tracker
             AmountBox.Text = "";
             _tracker = false;
             TransactionsListBox.ItemsSource = transactions.All.OrderBy(t => t.date).ToList();
-            _graphingController.PopulateGraphs(transactions.All);
         }
         
         private void AmountTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -177,7 +195,7 @@ namespace Transaction_Tracker
                     selection.account = AccountBox.Text;
                     selection.category = CategoryBox.Text;
                     CollectionViewSource.GetDefaultView(TransactionsListBox.ItemsSource).Refresh();
-
+                    GraphUpdated?.Invoke();
                 }
             }
         }
@@ -186,6 +204,7 @@ namespace Transaction_Tracker
         {
             transactions.Remove(TransactionsListBox.SelectedItem as Transaction);
             Refresh();
+            GraphUpdated?.Invoke();
         }
     }
 }

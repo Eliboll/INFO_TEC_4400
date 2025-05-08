@@ -20,10 +20,13 @@ namespace Transaction_Tracker
             _pieGraph = pieGraph;
 
             _barGraph.Plot.Title("Monthly Spending");
-            _barGraph.Plot.Axes.Bottom.Label.Text = "Months";
-
-
             _pieGraph.Plot.Title("Category Spending");
+            _barGraph.Plot.HideGrid();
+            _barGraph.Plot.Axes.Margins(bottom: 0);
+            _barGraph.Plot.Clear();
+            _pieGraph.Plot.Clear();
+            _barGraph.Refresh();
+            _pieGraph.Refresh();
         }
         public void PopulateGraphs(IEnumerable<Transaction> list)
         {
@@ -85,6 +88,7 @@ namespace Transaction_Tracker
             _pieGraph.Plot.ShowLegend();       // legend with category labels
             
             _pieGraph.Plot.Axes.Frameless();
+            _pieGraph.Plot.Title("Category Spending");
             _pieGraph.Plot.HideGrid();
             _pieGraph.Plot.Axes.Margins(left: 0, right: 0, top: 0, bottom: 0);
             _pieGraph.Refresh();
