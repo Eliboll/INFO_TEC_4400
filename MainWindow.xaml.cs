@@ -121,6 +121,7 @@ namespace Transaction_Tracker
         public void Refresh() 
         {
             TransactionsListBox.ItemsSource = transactions.All.OrderBy(t => t.date).ToList();
+            _graphingController.PopulateGraphs(transactions.All);
         }
         
         private void AmountTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

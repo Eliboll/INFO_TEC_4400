@@ -40,7 +40,10 @@ namespace Transaction_Tracker
                 return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
             }
         }
-
+        public override string ToString()
+        {
+            return $"{date:yyyy-MM-dd}  {description.PadRight(30)}  {amount,10:C}";
+        }
 
     }
 
