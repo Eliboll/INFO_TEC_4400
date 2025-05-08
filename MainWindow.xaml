@@ -9,7 +9,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            
+
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
@@ -37,7 +37,7 @@
         <Border Grid.Row="1" Grid.Column="0"
         Background="#252525"
         CornerRadius="10"
-        Margin="2">
+        Margin="2,2,2,167">
             <Grid Margin="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -45,19 +45,13 @@
                 </Grid.RowDefinitions>
 
                 <ListBox
-      x:Name="TransactionsListBox"
-      Grid.Row="0"
-      d:ItemsSource="{d:SampleData ItemCount=5}"
-      VerticalAlignment="Stretch"
-      HorizontalAlignment="Stretch" />
+                  x:Name="TransactionsListBox"
+                  Grid.Row="0"
+                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                  VerticalAlignment="Top" 
+                  SelectionChanged="SelectionChange" Height="309" Grid.RowSpan="2"
+                    />
 
-                <TextBox
-      x:Name="IndividualTransactionsTextBox"
-      Grid.Row="1"
-      TextWrapping="Wrap"
-      AcceptsReturn="True"
-      VerticalAlignment="Stretch"
-      HorizontalAlignment="Stretch" />
             </Grid>
         </Border>
 
@@ -80,6 +74,18 @@
           Margin="0,8,0,0" />
             </Grid>
         </Border>
+        <DatePicker HorizontalAlignment="Left" Margin="137,254,0,0" Grid.Row="1" VerticalAlignment="Top" IsEnabled="False" Name="DateBox" SelectedDateChanged="BoxUpdate"/>
+        <Label Content="Date" HorizontalAlignment="Left" Margin="10,254,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95"/>
+        <Label Content="Account" HorizontalAlignment="Left" Margin="10,280,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95"/>
+        <TextBox HorizontalAlignment="Left" Margin="137,284,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" Name="AccountBox" TextChanged="BoxUpdate"/>
+        <Label Content="Payee" HorizontalAlignment="Left" Margin="10,303,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95"/>
+        <TextBox HorizontalAlignment="Left" Margin="137,307,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" Name="PayeeBox" TextChanged="BoxUpdate"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="10,326,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95"/>
+        <TextBox HorizontalAlignment="Left" Margin="137,330,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" Name="DescriptionBox" TextChanged="BoxUpdate"/>
+        <Label Content="Category" HorizontalAlignment="Left" Margin="10,349,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95"/>
+        <TextBox HorizontalAlignment="Left" Margin="137,353,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" Name="CategoryBox" TextChanged="BoxUpdate"/>
+        <Label Content="Amount" HorizontalAlignment="Left" Margin="10,372,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95"/>
+        <TextBox HorizontalAlignment="Left" Margin="137,376,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False" Name="AmountBox" TextChanged="BoxUpdate" PreviewTextInput="AmountTextBox_PreviewTextInput"/>
 
     </Grid>
 </Window>
