@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Configuration;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,9 @@ namespace Transaction_Tracker
         private readonly Stopwatch _graphUpdateStopwatch = new Stopwatch();
         public event Action GraphUpdated = delegate { };
         private GraphingController _graphingController = null;
+
+        Filter transactionFilter = new Filter();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -147,7 +151,9 @@ namespace Transaction_Tracker
             CategoryBox.Text = "";
             AmountBox.Text = "";
             _tracker = false;
-            TransactionsListBox.ItemsSource = transactions.All.OrderBy(t => t.date).ToList();
+
+            transactionFilter.AddData(transactions.All);
+            TransactionsListBox.ItemsSource = transactionFilter.GetFilterOutput().ToList();
         }
         
         private void AmountTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -206,5 +212,49 @@ namespace Transaction_Tracker
             Refresh();
             GraphUpdated?.Invoke();
         }
+
+        public void ResetFilters(Object sender, RoutedEventArgs e) 
+        {
+            transactionFilter = new Filter();
+            Refresh();
+        }
+
+        public void CategorySearchClick(Object sender, RoutedEventArgs e) 
+        {
+            CategorySearch window = new CategorySearch();
+            bool? result = window.ShowDialog();
+
+            if (result == true)
+            {
+                transactionFilter = new CategoryFilter(window.searchContent);
+                Refresh();
+            }
+        }
+
+        public void DescriptionSearchClick(Object sender, RoutedEventArgs e) 
+        {
+            DescriptionSearch window = new DescriptionSearch();
+            bool? result = window.ShowDialog();
+
+            if (result == true)
+            {
+                transactionFilter = new DescriptionFilter(window.searchContent);
+                Refresh();
+            }
+        }
+
+        public void AddDateFilter(Object sender, RoutedEventArgs e) 
+        {
+            FilterDateWindow window = new FilterDateWindow();
+            bool? result = window.ShowDialog();
+
+            if (result == true) 
+            {
+                if (window.toDate != null) { transactionFilter.ToDate((DateTime)window.toDate); }
+                if (window.fromDate != null) { transactionFilter.FromDate((DateTime)window.fromDate); }
+                Refresh();
+            }
+        }
+
     }
 }

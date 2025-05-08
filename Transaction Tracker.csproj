@@ -104,12 +104,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CategorySearch.xaml.cs">
+      <DependentUpon>CategorySearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DescriptionSearch.xaml.cs">
+      <DependentUpon>DescriptionSearch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Filter.cs" />
+    <Compile Include="FilterDateWindow.xaml.cs">
+      <DependentUpon>FilterDateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GraphingController.cs" />
     <Compile Include="Transactions.cs" />
     <Compile Include="AddTransaction.xaml.cs">
       <DependentUpon>AddTransaction.xaml</DependentUpon>
     </Compile>
+    <Page Include="CategorySearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DescriptionSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FilterDateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -35,27 +35,27 @@ namespace Transaction_Tracker
         {
             IEnumerable<Transaction> returnTransactions = transactions;
             if (toDate != null) {
-                returnTransactions = returnTransactions.Where(t => t.date >= toDate);
+                returnTransactions = returnTransactions.Where(t => t.date <= toDate);
             }
             if (fromDate != null)
             {
-                returnTransactions = returnTransactions.Where(t => t.date <= fromDate);
+                returnTransactions = returnTransactions.Where(t => t.date >= fromDate);
             }
 
-            return transactions.OrderBy(t => t.date); 
+            return returnTransactions.OrderBy(t => t.date); 
         }
         public virtual IEnumerable<Transaction> GetFilterOutput(IEnumerable<Transaction> returnTransactions)
         {
             if (toDate != null)
             {
-                returnTransactions = returnTransactions.Where(t => t.date >= toDate);
+                returnTransactions = returnTransactions.Where(t => t.date <= toDate);
             }
             if (fromDate != null)
             {
-                returnTransactions = returnTransactions.Where(t => t.date <= fromDate);
+                returnTransactions = returnTransactions.Where(t => t.date >= fromDate);
             }
 
-            return transactions.OrderBy(t => t.date);
+            return returnTransactions.OrderBy(t => t.date);
         }
 
     }

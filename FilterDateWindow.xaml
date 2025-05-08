@@ -1,0 +1,24 @@
+﻿<Window x:Class="Transaction_Tracker.FilterDateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Transaction_Tracker"
+        mc:Ignorable="d"
+        Title="FilterDateWindow" Height="155" Width="282">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="126*"/>
+            <ColumnDefinition Width="518*"/>
+            <ColumnDefinition Width="67*"/>
+            <ColumnDefinition Width="89*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Filter Start Date" HorizontalAlignment="Left" Margin="16,12,0,0" VerticalAlignment="Top" Width="104" Grid.ColumnSpan="2"/>
+        <Label Content="Filter End Date" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="99"/>
+        <DatePicker Name="FromPicker" HorizontalAlignment="Left" Margin="120,12,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <DatePicker Name="ToPicker" HorizontalAlignment="Left" Margin="120,36,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="Either may be left empty&#xD;&#xA;" HorizontalAlignment="Left" Margin="16,89,0,0" VerticalAlignment="Top" Height="27" Width="140" Grid.ColumnSpan="2"/>
+        <Button Content="Add Filter" HorizontalAlignment="Left" Margin="62,69,0,0" VerticalAlignment="Top" Width="73" Grid.ColumnSpan="2" Click="Button_Click"/>
+
+    </Grid>
+</Window>
