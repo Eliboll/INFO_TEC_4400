@@ -99,7 +99,7 @@ namespace Transaction_Tracker
             {
                 _tracker = true;
 
-                DateBox.DisplayDate = selection.date;
+                DateBox.SelectedDate = selection.date;
                 AccountBox.Text = selection.account;
                 PayeeBox.Text = selection.payee;
                 DescriptionBox.Text = selection.description;
@@ -120,6 +120,14 @@ namespace Transaction_Tracker
 
         public void Refresh() 
         {
+            _tracker = true;
+            DateBox.SelectedDate = null;
+            AccountBox.Text = "";
+            PayeeBox.Text = "";
+            DescriptionBox.Text = "";
+            CategoryBox.Text = "";
+            AmountBox.Text = "";
+            _tracker = false;
             TransactionsListBox.ItemsSource = transactions.All.OrderBy(t => t.date).ToList();
             _graphingController.PopulateGraphs(transactions.All);
         }
@@ -163,13 +171,21 @@ namespace Transaction_Tracker
                 if (TransactionsListBox.SelectedItem is Transaction selection)
                 {
                     selection.amount = double.Parse(AmountBox.Text);
-                    selection.date = DateBox.DisplayDate;
+                    selection.date =  (DateTime) DateBox.SelectedDate;
                     selection.description = DescriptionBox.Text;
                     selection.payee = PayeeBox.Text;
                     selection.account = AccountBox.Text;
                     selection.category = CategoryBox.Text;
+                    CollectionViewSource.GetDefaultView(TransactionsListBox.ItemsSource).Refresh();
+
                 }
             }
+        }
+
+        public void DeleteClick(Object sender, RoutedEventArgs e) 
+        {
+            transactions.Remove(TransactionsListBox.SelectedItem as Transaction);
+            Refresh();
         }
     }
 }
